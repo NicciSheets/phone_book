@@ -8,30 +8,36 @@ enable :sessions
 client = Mysql2::Client.new(:host => ENV['DB_HOST'], :username => ENV['DB_USERNAME'], :database => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
 
 get '/' do
-	erb :login
+	username = username || ""
+	password = password || ""
+	password2 = password2 || ""
+	erb :login, locals:{username: "", password: "", password2: ""}
 end
 
-get '/new_user' do
+post '/new_user' do
 	username = params[:username]
 	password = params[:password]
 	password2 = params[:password2]
 	puts params
-	erb :phonebook, locals:{username: "", password: "", password2: ""}
+	redirect '/phonebook?username=' + username + '&password=' + password + '&password2=' + password2
 end
 
-get '/existing_user' do
+post '/existing_user' do
 	username = params[:username]
 	password = params[:password]
 	puts params
-	erb :phonebook, locals:{username: "", password: ""}
+	redirect '/phonebook?username=' + username + '&password=' + password
 end
 
+get '/phonebook' do
+	erb :phonebook
+end
 
-# post '/new_user' do
-# 	username =  params[:username]
-# 	password = params[:password]
-# 	password2 = params[:password2]
-# 	redirect '/phone_book?&username=' + username + '&password=' + password + '&password2=' + password
+# post '/phonebook' do
 # end
 
+
+
+# post '/phonebook' do
+# end
 
