@@ -43,7 +43,7 @@ button:hover {
 }
 
 /* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
+.cancelbtn, .signupbtn, .loginbtn{
   float: left;
   width: 50%;
 }
@@ -130,8 +130,8 @@ hr {
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password" required>
 
-      <label for="password2"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="password2" required>
+      <label for="password2"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Confirm Password" name="password2" required>
       
      <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
@@ -159,6 +159,7 @@ hr {
 
          
      <div class="clearfix">
+     	<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
         <button type="submit" class="loginbtn">Login</button>
       </div>
     </div>
