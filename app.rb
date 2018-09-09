@@ -19,6 +19,14 @@ get '/new_user' do
 	erb :phonebook, locals:{username: "", password: "", password2: ""}
 end
 
+get '/existing_user' do
+	username = params[:username]
+	password = params[:password]
+	puts params
+	erb :phonebook, locals:{username: "", password: ""}
+end
+
+
 # post '/new_user' do
 # 	username =  params[:username]
 # 	password = params[:password]
