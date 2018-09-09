@@ -1,0 +1,47 @@
+body
+{
+  background-color: darkslategrey;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2rem;
+}
+
+table
+{
+  width: 8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+.btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 0.4rem 1.1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  margin: 0.5rem 0.5rem;
+  cursor: pointer;
+}
+
+.title
+{
+  font-family: 'Anton', sans-serif;
+  color: darkkhaki;
+  font-size: 3rem;
+}
+
+.txtbox
+{
+  width: 7rem;
+}
+
+.errormsg
+{
+  color: lightcoral;
+  font-weight: bolder;
+  font-size: 1.1rem;
+}
