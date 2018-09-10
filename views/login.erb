@@ -167,20 +167,24 @@ hr {
       <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
       <label for="password2"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Confirm Password" name="password2" required>
+      <input type="password" placeholder="Confirm Password" id="password2" name="password2" required>
       
       <div class="clearfix">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
           <button type="submit" class="signupbtn">Sign Up</button>
       </div>
     </div>
-    
+
     <div id="message">
       <h3>Password must contain the following:</h3>
       <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
       <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
       <p id="number" class="invalid">A <b>number</b></p>
       <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+    </div>
+
+    <div id="message2">
+      <p id="matching" class="invalid">Confirm password <b>must</b> match</p>
     </div>
   </form>
 </div>
@@ -234,10 +238,12 @@ window.onclick = function(event) {
 }
 
 var myInput = document.getElementById("password1");
+var myInput2 = document.getElementById("password2");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
 var length = document.getElementById("length");
+var matching = document.getElementById("matching");
 
 // When the user clicks on the password field, show the message box
 myInput.onfocus = function() {
@@ -288,6 +294,27 @@ myInput.onkeyup = function() {
   } else {
     length.classList.remove("valid");
     length.classList.add("invalid");
+  }
+}
+
+// When the user clicks on the password field, show the message box
+myInput2.onfocus = function() {
+  document.getElementById("message2").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput2.onblur = function() {
+  document.getElementById("message2").style.display = "none";
+}
+
+myInput2.onkeyup = function() {
+  // Validate lowercase letters
+  if(myInput2.value.match(myInput)) { 
+    matching.classList.remove("invalid");
+    matching.classList.add("valid");
+  } else {
+    matching.classList.remove("valid");
+    matching.classList.add("invalid");
   }
 }
 </script>
