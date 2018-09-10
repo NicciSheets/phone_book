@@ -125,6 +125,19 @@ hr {
     font-size: 18px;
 }
 
+#message2 {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#message2 p {
+    padding: 10px 35px;
+    font-size: 18px;
+}
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
     color: green;
@@ -184,7 +197,7 @@ hr {
     </div>
 
     <div id="message2">
-      <p id="matching" class="invalid">Confirm password <b>must</b> match</p>
+      <p id="matching" class="invalid">Passwords <b>must</b> match</p>
     </div>
   </form>
 </div>
@@ -321,4 +334,4 @@ myInput2.onkeyup = function() {
 
 </body>
 </html>
-<!-- Need to fix the matching criteria for the two passwords, right now it's saying it's matching when only first one or two characters match up...also need to remove the initial message2 from the beginning screen until the user clicks in the confirm password field. -->
+<!-- Need to fix the matching criteria for the two passwords, right now it's saying it's matching when only first one or two characters match up... -->
