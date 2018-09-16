@@ -177,10 +177,10 @@ hr {
       <input type="text" placeholder="Enter Username" name="username" required autofocus>
 
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+      <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters." required>
 
       <label for="password2"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Confirm Password" id="password2" name="password2" required>
+      <input type="password" placeholder="Confirm Password" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords must match." required>
       
       <div class="clearfix">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
@@ -321,8 +321,7 @@ myInput2.onblur = function() {
 }
 
 myInput2.onkeyup = function() {
-  // Validate lowercase letters
-  if(myInput2.value.match(myInput)) { 
+  if(myInput2.value == myInput.value) { 
     matching.classList.remove("invalid");
     matching.classList.add("valid");
   } else {
