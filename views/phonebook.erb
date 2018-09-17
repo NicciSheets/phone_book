@@ -1,3 +1,78 @@
+<html>
+<head>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>
+</head>
+<body>
 <form method="post" action="phonebook">
-	<a href="/sessions/logout">Log Out</a>
+	<h1>Contacts</h1>
+<ul>
+  <li><a href="/phonebook">Home</a></li>
+  <li><a href="/new_contact">Add Contact</a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">Useful Links</a>
+    <div class="dropdown-content">
+      <a href="https://www.whitepages.com/">WhitePages</a>
+      <a href="https://www.mapquest.com/">MapQuest</a>
+      <a href="https://www.google.com/">Google</a>
+    </div>
+  </li>
+  <li style="float:right"><a href="/sessions/logout">Log Out</a></li>
+</ul>
+</form>
+
+
+</body>
+</html>
+
 </form>
