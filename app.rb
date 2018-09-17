@@ -10,7 +10,7 @@ conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'],
 
 def prepare_statements(conn)
 	conn.prepare("ndb", "insert into user_info (uuid, user_id, user_pass) values($1, $2, $3)")
-	#conn.prepare("cons", "insert into contact_info (, address, phone, owner) values($1, $2, $3, $4)")
+	conn.prepare("cons", "insert into contacts (first_name, last_name, phone, address) values($1, $2, $3, $4)")
 end
 prepare_statements(conn)
 
@@ -75,7 +75,6 @@ get '/new_contact' do
 	last_name = last_name || ""
 	phone = phone || ""
 	address = address || ""
-	puts params
 	erb :new_contact
 end
 
@@ -84,7 +83,9 @@ post '/new_contact' do
 	last_name = params[:last_name]
 	phone = params[:phone]
 	address = params[:address]
-	puts params
+
+	conn.exec_prepared('cons', [params[:first_name] , params[:last_name], params[:phone], params[:address]])
+
 	redirect '/phonebook'
 end
 
