@@ -51,6 +51,22 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
 </style>
 </head>
 <body>
@@ -71,6 +87,22 @@ li.dropdown {
 </ul>
 </form>
 
+	<table>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Phone</th>
+			<th>Address</th>
+		</tr>
+	<% res_arr.each do |r|%>
+	  <tr>
+	    <td><%= r['first_name']%></td>
+	    <td><%= r['last_name']%></td>
+	    <td><%= r['phone']%></td>
+	    <td><%= r['address']%></td>
+	  </tr>
+		 <% end%>
+	</table>
 
 </body>
 </html>

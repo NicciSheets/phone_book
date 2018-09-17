@@ -10,14 +10,12 @@ conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'],
 
 def prepare_statements(conn)
 	conn.prepare("ndb", "insert into user_info (uuid, user_id, user_pass) values($1, $2, $3)")
-	conn.prepare("cons", "insert into contacts (first_name, last_name, phone, address) values($1, $2, $3, $4)")
+	conn.prepare("cons", "insert into contacts (first_name, last_name, phone, address, owner) values($1, $2, $3, $4, $5)")
 end
 prepare_statements(conn)
 
 get '/' do
-	username = username || ""
-	password = password || ""
-	password2 = password2 || ""
+	
 	erb :login
 end
 
@@ -55,18 +53,26 @@ post '/existing_user' do
 end
 
 get '/phonebook' do
-	# first_name = first_name || ""
-	# last_name = last_name || ""
-	# phone = phone || ""
-	# address = address || ""
-	erb :phonebook
+	first_name = first_name || ""
+	last_name = last_name || ""
+	phone = phone || ""
+	address = address || ""
+
+	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:id]}' ")
+	res_arr = []
+	res.each do |r|
+		res_arr << r
+	end
+
+	erb :phonebook, locals:{res_arr: res_arr}
 end
 
 post '/phonebook' do
-	# first_name = params[:first_name]
-	# last_name = params[:last_name]
-	# phone = params[:phone]
-	# address = params[:address]
+	first_name = params[:first_name]
+	last_name = params[:last_name]
+	phone = params[:phone]
+	address = params[:address]
+
 	redirect '/phonebook'
 end
 
@@ -75,6 +81,8 @@ get '/new_contact' do
 	last_name = last_name || ""
 	phone = phone || ""
 	address = address || ""
+	owner = owner || ""
+
 	erb :new_contact
 end
 
@@ -83,9 +91,9 @@ post '/new_contact' do
 	last_name = params[:last_name]
 	phone = params[:phone]
 	address = params[:address]
+	owner = session[:id]
 
-	conn.exec_prepared('cons', [params[:first_name] , params[:last_name], params[:phone], params[:address]])
-
+	conn.exec_prepared('cons', [params[:first_name], params[:last_name], params[:phone], params[:address], session[:id]])
 	redirect '/phonebook'
 end
 
