@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'pg'
 require 'securerandom'
+require 'bcrypt'
 
 load 'local_env.rb' if File.exist?('local_env.rb')
 
@@ -23,14 +24,15 @@ post '/new_user' do
 	username = params[:username]
 	password = params[:password]
 	password2 = params[:password2]
+	my_password = BCrypt::Password.create(password)
 
 	if password != password2
 		redirect '/'
 	end
 
-	conn.exec_prepared('ndb', [SecureRandom.uuid, params[:username] , params[:password]])
+	conn.exec_prepared('ndb', [SecureRandom.uuid, params[:username], my_password])
 
-	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' AND user_pass = '#{password}' ")
+	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' AND user_pass = '#{my_password}' ")
 
 	res.each do |n|
 		session[:id] = n['uuid']
@@ -50,6 +52,7 @@ post '/existing_user' do
 		session[:user_name] = n['user_id']
 		redirect '/phonebook'
 	end
+	erb :login
 end
 
 get '/phonebook' do
