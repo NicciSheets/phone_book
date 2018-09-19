@@ -22,7 +22,7 @@ li a, .dropbtn {
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
+    background-color: #f44336;
 }
 
 li.dropdown {
@@ -87,7 +87,13 @@ tr:nth-child(even) {
 </ul>
 </form>
 
-	<table>
+			<header>
+				<form>
+					<input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+				</form>
+			</header>
+
+	<table id="myTable">
 		<tr>
 			<th>First Name</th>
 			<th>Last Name</th>
@@ -108,3 +114,24 @@ tr:nth-child(even) {
 </html>
 
 </form>
+<footer>
+<script>
+	function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+</footer>

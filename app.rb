@@ -45,7 +45,8 @@ post '/existing_user' do
 	username = params[:username]
 	password = params[:password]
 
-	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' AND user_pass = '#{password}' ")
+
+	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' ")
 
 	res.each do |n|
 		session[:id] = n['uuid']
