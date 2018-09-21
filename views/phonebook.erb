@@ -70,10 +70,10 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-<form method="post" action="phonebook">
-	<h1>Contacts</h1>
+
+<h1>Contacts</h1>
+
 <ul>
-  <li><a href="/phonebook">Home</a></li>
   <li><a href="/new_contact">Add Contact</a></li>
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">Useful Links</a>
@@ -83,18 +83,17 @@ tr:nth-child(even) {
       <a href="https://www.google.com/">Google</a>
     </div>
   </li>
+  <li style="text-align:center"><a><input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></a></li>
   <li style="float:right"><a href="/sessions/logout">Log Out</a></li>
 </ul>
-</form>
+<br>
+<header>
+	<form>
+	<input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+	</form>
+</header>
 
-			<header>
-				<form>
-					<input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-				</form>
-			</header>
-
-	<input type="button" id="btnDelete" value="Delete Selected Rows" onclick="removeSampleRow('myTable')">
-
+<form method="post" action="phonebook">
 	<table id="myTable">
 		<tr>
 			<th>Name</th>
@@ -111,7 +110,7 @@ tr:nth-child(even) {
 	  </tr>
 		 <% end%>
 	</table>
-
+</form>
 </body>
 </html>
 

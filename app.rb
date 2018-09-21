@@ -15,8 +15,8 @@ def prepare_statements(conn)
 end
 prepare_statements(conn)
 
+
 get '/' do
-	
 	erb :login
 end
 
@@ -32,7 +32,7 @@ post '/new_user' do
 
 	conn.exec_prepared('ndb', [SecureRandom.uuid, params[:username], my_password])
 
-	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' AND user_pass = '#{my_password}' ")
+	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' AND user_pass = '#{my_password}'")
 
 	res.each do |n|
 		session[:id] = n['uuid']
@@ -73,7 +73,6 @@ post '/phonebook' do
 	names = params[:names]
 	phone = params[:phone]
 	address = params[:address]
-
 	redirect '/phonebook'
 end
 
