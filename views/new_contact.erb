@@ -1,6 +1,9 @@
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+</head>
+
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -76,7 +79,7 @@ li a:hover, .dropdown:hover .dropbtn {
     <input type="text" id="names" name="names">
 
     <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" placeholder="(xxx)xxx-xxxx" pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' title='Phone Number Format: (xxx)xxx-xxxx'>
+    <input type="text" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
     
     <label for="address">Address</label>
     <textarea id="address" name="address" placeholder="Enter Full Address..." style="height:200px"></textarea>
@@ -84,6 +87,25 @@ li a:hover, .dropdown:hover .dropbtn {
     <input type="submit" value="Submit">
   </form>
 </div>
-
 </body>
+<footer>
+    <script>
+    $("#phone").on("change keyup paste", function () {
+    var output;
+    var input = $("#phone").val();
+    input = input.replace(/[^0-9]/g, '');
+    var area = input.substr(0, 3);
+    var pre = input.substr(3, 3);
+    var tel = input.substr(6, 4);
+    if (area.length < 3) {
+        output = "(" + area;
+    } else if (area.length == 3 && pre.length < 3) {
+        output = "(" + area + ")" + " " + pre;
+    } else if (area.length == 3 && pre.length == 3) {
+        output = "(" + area + ")" + " " + pre + "-" + tel;
+    }
+    $("#phone").val(output);
+    });
+    </script>
+</footer>
 </html>
