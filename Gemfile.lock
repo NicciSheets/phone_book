@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bcrypt (3.1.12-x64-mingw32)
     mustermann (1.0.3)
     pg (1.1.3-x64-mingw32)
     rack (2.0.5)
@@ -17,6 +18,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  bcrypt
   pg
   sinatra
 
