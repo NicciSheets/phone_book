@@ -11,7 +11,7 @@ conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'],
 
 def prepare_statements(conn)
 	conn.prepare("ndb", "insert into user_info (uuid, user_id, user_pass) values($1, $2, $3)")
-	conn.prepare("cons", "insert into contacts (first_name, last_name, phone, address, owner) values($1, $2, $3, $4, $5)")
+	conn.prepare("cons", "insert into contacts (names, phone, address, owner) values($1, $2, $3, $4)")
 end
 prepare_statements(conn)
 
@@ -57,8 +57,7 @@ post '/existing_user' do
 end
 
 get '/phonebook' do
-	first_name = first_name || ""
-	last_name = last_name || ""
+	names = names || ""
 	phone = phone || ""
 	address = address || ""
 
@@ -72,8 +71,7 @@ get '/phonebook' do
 end
 
 post '/phonebook' do
-	first_name = params[:first_name]
-	last_name = params[:last_name]
+	names = params[:names]
 	phone = params[:phone]
 	address = params[:address]
 
@@ -81,8 +79,7 @@ post '/phonebook' do
 end
 
 get '/new_contact' do
-	first_name = first_name || ""
-	last_name = last_name || ""
+	names = names || ""
 	phone = phone || ""
 	address = address || ""
 	owner = owner || ""
@@ -91,13 +88,12 @@ get '/new_contact' do
 end
 
 post '/new_contact' do
-	first_name = params[:first_name]
-	last_name = params[:last_name]
+	names = params[:names]
 	phone = params[:phone]
 	address = params[:address]
 	owner = session[:id]
 
-	conn.exec_prepared('cons', [params[:first_name], params[:last_name], params[:phone], params[:address], session[:id]])
+	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:id]])
 	redirect '/phonebook'
 end
 

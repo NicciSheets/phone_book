@@ -5,7 +5,7 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
-input[type=text], select, textarea {
+input[type=text], input[type=tel], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -34,23 +34,49 @@ input[type=submit]:hover {
     background-color: #f2f2f2;
     padding: 20px;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: #f44336;
+}
 </style>
 </head>
 <body>
 
-<h3>Contact Form</h3>
+<ul>
+    <li style="float:left"><a href="/phonebook">Home</a></li>
+    <li style="float:right"><a href="/sessions/logout">Log Out</a></li>
+</ul>
 
 <div class="container">
   <form method="post" action="new_contact">
-    <a href="/phonebook">Home</a><br>
-    <label for="fname">First Name</label>
-    <input type="text" id="first_name" name="first_name">
 
-    <label for="lname">Last Name</label>
-    <input type="text" id="last_name" name="last_name">
+    <h3>Contact Form</h3><hr>
+   
+    <label for="fname">Name</label>
+    <input type="text" id="names" name="names">
 
     <label for="phone">Phone Number</label>
-    <input type="text" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
+    <input type="tel" id="phone" name="phone" placeholder="(xxx)xxx-xxxx" pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' title='Phone Number Format: (xxx)xxx-xxxx'>
     
     <label for="address">Address</label>
     <textarea id="address" name="address" placeholder="Enter Full Address..." style="height:200px"></textarea>
