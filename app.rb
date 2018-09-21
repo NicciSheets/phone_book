@@ -53,7 +53,6 @@ post '/existing_user' do
 		session[:user_name] = n['user_id']
 		redirect '/phonebook'
 	end
-	erb :login
 end
 
 get '/phonebook' do
@@ -98,7 +97,8 @@ post '/new_contact' do
 end
 
 get '/sessions/logout' do
-	session.clear
+	session[:id] = nil
+	session[:user_name] = nil
 	redirect '/'
 end
 
