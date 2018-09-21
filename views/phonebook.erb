@@ -135,30 +135,5 @@ tr:nth-child(even) {
     }       
   }
 }
-/*** FUNCTION TO DELETE ROW ***/
-function removeSampleRow(myTable) {
-    /***We get the table object based on given id ***/
-    var objTable = document.getElementById('myTable');
-
-    /*** Get the current row length ***/
-    var iRow = objTable.rows.length;
-
-	/*** Initial row counter ***/
-	var counter = 0;
-
-    /*** Performing a loop inside the table ***/
-	if (objTable.rows.length > 1) {
-		for (var i = 0; i < objTable.rows.length; i++) {
-
-			 /*** Get checkbox object ***/
-			var chk = objTable.rows[i].cells[0].childNodes[0];
-			if (chk.checked) {
-				/*** if checked we del ***/
-				objTable.deleteRow(i);
-				iRow--;
-				i--;
-				counter = counter + 1;
-			}
-		}
 </script>
 </footer>
