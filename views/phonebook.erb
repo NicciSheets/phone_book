@@ -1,5 +1,6 @@
 <html>
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <style>
 ul {
     list-style-type: none;
@@ -17,14 +18,17 @@ li a, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px 14px;
     text-decoration: none;
 }
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: #f44336;
+/*li.logout:hover {
+	color: black;
 }
 
+li.newcontact:hover, .dropdown:hover .dropbtn {
+    background-color: #f44336;
+}
+*/
 li.dropdown {
     display: inline-block;
 }
@@ -51,6 +55,25 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+ul input[type=text] {
+  padding: 4px;
+  font-size: 17px;
+  border: none;
+}
+
+ul .search-container button {
+  float: right;
+  padding: 6px 10px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+ul .search-container button:hover {
+  background: #ccc;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -74,7 +97,7 @@ tr:nth-child(even) {
 <h1>Contacts</h1>
 
 <ul>
-  <li><a href="/new_contact">Add Contact</a></li>
+  <li class="newcontact"><a href="/new_contact">Add Contact</a></li>
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">Useful Links</a>
     <div class="dropdown-content">
@@ -83,15 +106,16 @@ tr:nth-child(even) {
       <a href="https://www.google.com/">Google</a>
     </div>
   </li>
-  <li style="text-align:center"><a><input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></a></li>
-  <li style="float:right"><a href="/sessions/logout">Log Out</a></li>
+  <li class="logout"><a href="/sessions/logout" style="color:red">Log Out</a></li>
+  <li style="float:right">
+  	<a div class="search-container">
+      <input type="text" placeholder="Search Contacts" name="search" id="myInput" onkeyup="myFunction()">
+      <button type="submit"><i class="fa fa-search"></i></button>
+  	</div></a>
+  </li>
 </ul>
 <br>
-<header>
-	<form>
-	<input type="text" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-	</form>
-</header>
+
 
 <form method="post" action="phonebook">
 	<table id="myTable">

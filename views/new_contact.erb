@@ -58,16 +58,16 @@ li a, .dropbtn {
     text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+/*li a:hover, .dropdown:hover .dropbtn {
     background-color: #f44336;
-}
+}*/
 </style>
 </head>
 <body>
 
 <ul>
     <li style="float:left"><a href="/phonebook">Home</a></li>
-    <li style="float:right"><a href="/sessions/logout">Log Out</a></li>
+    <li style="float:right"><a href="/sessions/logout" style="color:red">Log Out</a></li>
 </ul>
 
 <div class="container">
@@ -76,13 +76,13 @@ li a:hover, .dropdown:hover .dropbtn {
     <h3>Contact Form</h3><hr>
    
     <label for="fname">Name</label>
-    <input type="text" id="names" name="names">
+    <input type="text" id="names" name="names" placeholder="Full Name">
 
     <label for="phone">Phone Number</label>
     <input type="text" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
     
     <label for="address">Address</label>
-    <textarea id="address" name="address" placeholder="Enter Full Address..." style="height:200px"></textarea>
+    <textarea id="address" name="address" placeholder="PO Box or Street Address&#x0a;City, State Zip Code" style="height:100px"></textarea>
 
     <input type="submit" value="Submit">
   </form>
