@@ -50,7 +50,7 @@ button:hover {
 
 /* Add padding to container elements */
 .container {
-    padding: 16px;
+    padding: 12px;
 }
 
 /* The Modal (background) */
@@ -64,7 +64,6 @@ button:hover {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: #474e5d;
-    padding-top: 50px;
 }
 
 /* Modal Content/Box */
@@ -116,13 +115,13 @@ hr {
     background: #f1f1f1;
     color: #000;
     position: relative;
-    padding: 20px;
-    margin-top: 10px;
+    padding: 5px;
+    margin-top: 5px;
 }
 
 #message p {
-    padding: 10px 35px;
-    font-size: 18px;
+    padding: 6px 12px;
+    font-size: 16px;
 }
 
 #message2 {
@@ -130,13 +129,13 @@ hr {
     background: #f1f1f1;
     color: #000;
     position: relative;
-    padding: 20px;
-    margin-top: 10px;
+    padding: 5px;
+    margin-top: 5px;
 }
 
 #message2 p {
-    padding: 10px 35px;
-    font-size: 18px;
+    padding: 6px 12px;
+    font-size: 16px;
 }
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
@@ -168,26 +167,23 @@ hr {
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
   <form method="post" class="modal-content" action="/new_user">
     <div class="container">
-      <h1>Sign Up</h1>
-      <p>Please complete this form to create an account.</p>
+      <h2>Create Account</h2>
       <hr>
       <label for="username"><b><span style="color:red;">*</span>Username</b></label>
       <input type="text" placeholder="Enter Username" name="username" pattern="^[a-z0-9-_\.]{1,20}" title="Must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period." required autofocus>
 
-      <label for="password"><b><span style="color:red;">**</span>Password</b></label><br>
+      <label for="password"><b>Password</b></label><br>
       <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter." required>
 
       <label for="password2"><b>Confirm Password</b></label>
       <input type="password" placeholder="Confirm Password" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords must match." required>
-
-      <p style="font-size:12px"><span style="color:red;">*</span>Username must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period.</p>
-      <p style="font-size:12px"><span style="color:red;">**</span>Password must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter.</p>
-
-      
+       
       <div class="clearfix">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
           <button type="submit" class="signupbtn">Sign Up</button>
       </div>
+
+       <p style="font-size:10px"><span style="color:red;">*</span>Username must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period.</p>
     </div>
 
     <div id="message">
