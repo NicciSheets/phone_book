@@ -35,7 +35,7 @@ post '/new_user' do
 	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' AND user_pass = '#{my_password}'")
 
 	res.each do |n|
-		session[:id] = n['uuid']
+		session[:table_id] = n['uuid']
 		session[:user_name] = n['user_id']
 		redirect '/phonebook'
 	end
@@ -45,11 +45,10 @@ post '/existing_user' do
 	username = params[:username]
 	password = params[:password]
 
-
 	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}' ")
 
 	res.each do |n|
-		session[:id] = n['uuid']
+		session[:table_id] = n['uuid']
 		session[:user_name] = n['user_id']
 		redirect '/phonebook'
 	end
@@ -59,8 +58,10 @@ get '/phonebook' do
 	names = names || ""
 	phone = phone || ""
 	address = address || ""
+	owner = owner || ""
+	id = session[:id]
 
-	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:id]}' ")
+	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}' ")
 	res_arr = []
 	res.each do |r|
 		res_arr << r
@@ -69,18 +70,31 @@ get '/phonebook' do
 	erb :phonebook, locals:{res_arr: res_arr}
 end
 
-post '/phonebook' do
-	names = params[:names]
-	phone = params[:phone]
-	address = params[:address]
-	redirect '/phonebook'
-end
+# post '/phonebook' do
+# 	names = params[:names2]
+# 	phone = params[:phone2]
+# 	address = params[:address2]
+# 	owner = session[:id]
+
+	
+# # UPDATE contacts
+# #     SET { names = {  | DEFAULT } |
+# #           ( column_name [, ...] ) = [ ROW ] ( { expression | DEFAULT } [, ...] ) |
+# #           ( column_name [, ...] ) = ( sub-SELECT )
+# #         } [, ...]
+# #     [ FROM from_list ]
+# #     [ WHERE condition | WHERE CURRENT OF cursor_name ]
+# #     [ RETURNING * | output_expression [ [ AS ] output_name ] [, ...] ]
+
+# 	redirect '/phonebook'
+# end
 
 get '/new_contact' do
 	names = names || ""
 	phone = phone || ""
 	address = address || ""
 	owner = owner || ""
+	id = session[:id]
 
 	erb :new_contact
 end
@@ -89,16 +103,32 @@ post '/new_contact' do
 	names = params[:names]
 	phone = params[:phone]
 	address = params[:address]
-	owner = session[:id]
+	owner = session[:table_id]
+	
 
-	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:id]])
+	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
 	redirect '/phonebook'
 end
 
 get '/sessions/logout' do
-	session[:id] = nil
+	session[:table_id] = nil
 	session[:user_name] = nil
 	redirect '/'
 end
 
+post '/delete_con' do
+	names = params[:names2]
+	phone = params[:phone2]
+	address = params[:address2]
+	owner = session[:table_id]
+	
+	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}'")
 
+	res.each do |n|
+		session[:sess_id] = n['id']
+	end
+	
+	conn.exec("DELETE FROM contacts WHERE id = '#{session[:sess_id]}'")
+
+	redirect '/phonebook'
+end
