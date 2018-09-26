@@ -74,9 +74,10 @@ li a, .dropbtn {
   <form method="post" action="new_contact">
 
     <h3>Contact Form</h3><hr>
-   
+
+     
     <label for="fname">Name</label>
-    <input type="text" name="names" placeholder="Full Name">
+    <input type="text" name="names" placeholder="Full Name" autofocus>
 
     <label for="phone">Phone Number</label>
     <input type="text" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
@@ -90,6 +91,8 @@ li a, .dropbtn {
 </body>
 <footer>
     <script>
+
+    // automatically applies the parenthesis for the area code and the dash for the phone number as the user supplies input
     $("#phone").on("change keyup paste", function () {
     var output;
     var input = $("#phone").val();

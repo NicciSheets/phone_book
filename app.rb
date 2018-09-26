@@ -54,47 +54,11 @@ post '/existing_user' do
 	end
 end
 
-get '/phonebook' do
-	names = names || ""
-	phone = phone || ""
-	address = address || ""
-	owner = owner || ""
-	id = session[:id]
-
-	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}' ")
-	res_arr = []
-	res.each do |r|
-		res_arr << r
-	end
-
-	erb :phonebook, locals:{res_arr: res_arr}
-end
-
-# post '/phonebook' do
-# 	names = params[:names2]
-# 	phone = params[:phone2]
-# 	address = params[:address2]
-# 	owner = session[:id]
-
-	
-# # UPDATE contacts
-# #     SET { names = {  | DEFAULT } |
-# #           ( column_name [, ...] ) = [ ROW ] ( { expression | DEFAULT } [, ...] ) |
-# #           ( column_name [, ...] ) = ( sub-SELECT )
-# #         } [, ...]
-# #     [ FROM from_list ]
-# #     [ WHERE condition | WHERE CURRENT OF cursor_name ]
-# #     [ RETURNING * | output_expression [ [ AS ] output_name ] [, ...] ]
-
-# 	redirect '/phonebook'
-# end
-
 get '/new_contact' do
 	names = names || ""
 	phone = phone || ""
 	address = address || ""
 	owner = owner || ""
-	id = session[:id]
 
 	erb :new_contact
 end
@@ -105,9 +69,49 @@ post '/new_contact' do
 	address = params[:address]
 	owner = session[:table_id]
 	
-
 	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
 	redirect '/phonebook'
+end
+
+get '/phonebook' do
+	names = names || ""
+	phone = phone || ""
+	address = address || ""
+	owner = owner || ""
+	id = session[:id]
+	
+	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}' ")
+	res_arr = []
+	res.each do |r|
+		res_arr << r
+		p "#{res_arr} is res_arr"
+	end
+	erb :phonebook, locals:{res_arr: res_arr}
+end
+
+post '/delete_con' do
+	owner = session[:table_id]
+	id = params[:id]
+	p "id is #{params[:id]}"
+	# res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}' ")
+
+	# row = []
+	# res.each do |r|
+	# 	r[:id]
+	# 	p "#{r[:id]} is id"
+	# end
+		
+	# res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}'")
+	# p "res is #{res}"
+	# res_id = []
+	# res.each do |r|
+	# 	res_id << r['id']
+	# 	p "#res_id is '#{res_id}'"
+	# end
+		
+	conn.exec("DELETE FROM contacts WHERE id = '#{delete_contact}'")
+
+	redirect '/phonebook?res_arr=' + res_arr
 end
 
 get '/sessions/logout' do
@@ -116,19 +120,3 @@ get '/sessions/logout' do
 	redirect '/'
 end
 
-post '/delete_con' do
-	names = params[:names2]
-	phone = params[:phone2]
-	address = params[:address2]
-	owner = session[:table_id]
-	
-	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}'")
-
-	res.each do |n|
-		session[:sess_id] = n['id']
-	end
-	
-	conn.exec("DELETE FROM contacts WHERE id = '#{session[:sess_id]}'")
-
-	redirect '/phonebook'
-end
