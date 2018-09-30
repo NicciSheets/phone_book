@@ -128,10 +128,10 @@ tr:nth-child(even) {
 			<th></th>
 		</tr>
     <tr>
-	<% res_arr.each_with_index do |r, i|%>
-	  <td><div class="row_data" id="<%res_arr[i]%>" contenteditable="true" name="names" autofocus0><%= r['names']%></div></td>
-	  <td><div class="row_data" id="<%res_arr[i]%>" contenteditable="true" name="phone"><%= r['phone']%></div></td>
-	  <td><div class="row_data" id="<%res_arr[i]%>" contenteditable="true" name="address"><%= r['address']%></div></td>
+	<% res_arr.each do |r|%>
+    <td><div class="row_data"  contenteditable="true" name="names" autofocus0><%= r['names']%></div></td>
+	  <td><div class="row_data"  contenteditable="true" name="phone"><%= r['phone']%></div></td>
+	  <td><div class="row_data"  contenteditable="true" name="address"><%= r['address']%></div></td>
 	    <!-- <td><span class="btn_edit" > <a href="#" class="btn btn-link " row_id="row_id" >Edit</a> </span>
 		  Save and Cancel button only show when Edit is clicked -->
 		<!-- <span class="btn_save"> <a href="#" class="btn btn-link"  row_id="row_id"> Save</a> | </span>
@@ -140,6 +140,7 @@ tr:nth-child(even) {
 		<td><input type="submit" value="Delete"></td>
 	  </tr>
 		 <%end%>
+     
 	</table>
 	<!-- <input type="submit" value="Submit"> -->
 </form>
