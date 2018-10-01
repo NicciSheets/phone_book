@@ -1,6 +1,6 @@
 <html>
 <head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <style>
 ul {
     list-style-type: none;
@@ -22,7 +22,7 @@ li a, .dropbtn {
     text-decoration: none;
 }
 /*li.logout:hover {
-	color: black;
+  color: black;
 }
 
 li.newcontact:hover, .dropdown:hover .dropbtn {
@@ -108,41 +108,40 @@ tr:nth-child(even) {
   </li>
   <li class="logout"><a href="/sessions/logout" style="color:red">Log Out</a></li>
   <li style="float:right">
-  	<a div class="search-container">
+    <a div class="search-container">
       <input type="text" placeholder="Search Contacts" name="search" id="myInput" onkeyup="myFunction()">
       <button type="submit"><i class="fa fa-search"></i></button>
-  	</div></a>
+    </div></a>
   </li>
 </ul>
 <br>
 
 
 <form method="post" action="delete_con">
-	
-	<table class="myTable">
+  
+  <table class="myTable" id="table">
     <tr>
-		<th>Name</th>
-		<th>Phone</th>
-		<th>Address</th>
-		<th>Options</th>
-			<th></th>
-		</tr>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Options</th>
+    </tr>
+    <% res_arr.each do |r|%>
     <tr>
-	<% res_arr.each do |r|%>
-    <td><div class="row_data"  contenteditable="true" name="names" autofocus0><%= r['names']%></div></td>
-	  <td><div class="row_data"  contenteditable="true" name="phone"><%= r['phone']%></div></td>
-	  <td><div class="row_data"  contenteditable="true" name="address"><%= r['address']%></div></td>
-	    <!-- <td><span class="btn_edit" > <a href="#" class="btn btn-link " row_id="row_id" >Edit</a> </span>
-		  Save and Cancel button only show when Edit is clicked -->
-		<!-- <span class="btn_save"> <a href="#" class="btn btn-link"  row_id="row_id"> Save</a> | </span>
-		<span class="btn_cancel"> <a href="#" class="btn btn-link" row_id="row_id"> Cancel</a> | </span> -->
-		<!-- </td> -->
-		<td><input type="submit" value="Delete"></td>
-	  </tr>
-		 <%end%>
+    <td><div class="row_data"  contenteditable="true" name="names" autofocus><%= r['names']%></div></td>
+    <td><div class="row_data"  contenteditable="true" name="phone"><%= r['phone']%></div></td>
+    <td><div class="row_data"  contenteditable="true" name="address"><%= r['address']%></div></td>
+      <!-- <td><span class="btn_edit" > <a href="#" class="btn btn-link " row_id="row_id" >Edit</a> </span>
+      Save and Cancel button only show when Edit is clicked -->
+    <!-- <span class="btn_save"> <a href="#" class="btn btn-link"  row_id="row_id"> Save</a> | </span>
+    <span class="btn_cancel"> <a href="#" class="btn btn-link" row_id="row_id"> Cancel</a> | </span> -->
+    <!-- </td> -->
+    <td><button name="id" value="<%= r['id'] %>">Delete</button></td>
+    </tr>
+     <%end%>
      
-	</table>
-	<!-- <input type="submit" value="Submit"> -->
+  </table>
+  <!-- <input type="submit" value="Submit"> -->
 </form>
 </body>
 
@@ -166,4 +165,20 @@ function myFunction() {
   }
 }
 
+function myId(){
+  var element = document.getElementById("id");
+  element.parentNode.removeChild(element);
+  console.log(element)
+}
+
+// var index, table = document.getElementById('table');
+//         for(var i = 0; i < table.rows.length; i++)
+//         {
+//             table.rows[i].cells[3].onclick = function()
+//             {
+//                 index = this.parentElement.rowIndex;
+//                 table.deleteRow(index);
+//                 console.log(index);
+//             };
+//     }
 </script>
