@@ -76,25 +76,6 @@ get '/phonebook' do
 	erb :phonebook, locals:{res_arr: res_arr}
 end
 
-# post '/phonebook' do
-# 	names = params[:names2]
-# 	phone = params[:phone2]
-# 	address = params[:address2]
-# 	owner = session[:id]
-
-	
-# # UPDATE contacts
-# #     SET { names = {  | DEFAULT } |
-# #           ( column_name [, ...] ) = [ ROW ] ( { expression | DEFAULT } [, ...] ) |
-# #           ( column_name [, ...] ) = ( sub-SELECT )
-# #         } [, ...]
-# #     [ FROM from_list ]
-# #     [ WHERE condition | WHERE CURRENT OF cursor_name ]
-# #     [ RETURNING * | output_expression [ [ AS ] output_name ] [, ...] ]
-
-# 	redirect '/phonebook'
-# end
-
 get '/new_contact' do
 	names = names || ""
 	phone = phone || ""
@@ -111,15 +92,8 @@ post '/new_contact' do
 	address = params[:address]
 	owner = session[:table_id]
 	
-
 	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
 	redirect '/phonebook'
-end
-
-get '/sessions/logout' do
-	session[:table_id] = nil
-	session[:user_name] = nil
-	redirect '/'
 end
 
 post '/delete_con' do
@@ -131,9 +105,14 @@ post '/delete_con' do
 	p "id is #{id}"
 
 	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}'")
-
 	
 	conn.exec("DELETE FROM contacts WHERE id = '#{id}'")
 
 	redirect '/phonebook'
+end
+
+get '/sessions/logout' do
+	session[:table_id] = nil
+	session[:user_name] = nil
+	redirect '/'
 end
