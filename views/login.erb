@@ -159,8 +159,13 @@ hr {
     content: "✖";
 }
 </style>
+
 <body>
-<%= message %>
+
+<form method="post" action="/error">
+    <%=error_msg%>
+</form>
+
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button>
 
 <div id="id01" class="modal">
@@ -175,8 +180,10 @@ hr {
       <label for="password"><b>Password</b></label><br>
       <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter." required>
 
-      <label for="password2"><b>Confirm Password</b></label>
+      <scan><label for="password2"><b>Confirm Password</b></label>
       <input type="password" placeholder="Confirm Password" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords must match." required>
+      <input type="checkbox" onclick="myPassword()">Show Password</scan>
+
        
       <div class="clearfix">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
@@ -211,8 +218,9 @@ hr {
       <label for="username"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="username" required autofocus>
 
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <scan><label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" id="password" required>
+      <input type="checkbox" onclick="myPassword()">Show Password</scan>
 
          
      <div class="clearfix">
@@ -305,6 +313,7 @@ myInput.onkeyup = function() {
   }
 }
 
+// javascript for the passwords matching
 // When the user clicks on the password field, show the message box
 myInput2.onfocus = function() {
   document.getElementById("message2").style.display = "block";
@@ -324,6 +333,31 @@ myInput2.onkeyup = function() {
     matching.classList.add("invalid");
   }
 }
+
+
+// javascript for show password checkbox option
+function myPassword() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+    var x = document.getElementById("password1");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+    var x = document.getElementById("password2");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+
 </script>
 
 </body>
