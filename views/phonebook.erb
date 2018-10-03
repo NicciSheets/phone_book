@@ -124,14 +124,12 @@ tr:nth-child(even) {
     <td><div class="row_data"  contenteditable="true" name="names" autofocus><%= r['names']%></div></td>
     <td><div class="row_data"  contenteditable="true" name="phone"><%= r['phone']%></div></td>
     <td><div class="row_data"  contenteditable="true" name="address"><%= r['address']%></div></td>
-    <td><button name="id" value="<%= r['id'] %>">Delete</button></td>
+    <td><scan><button name="id" value="<%= r['id'] %>">Delete</button><button name="edit">Update Contact</button></scan></td>
     </tr>
-     <%end%>
-     
+    <%end%>
   </table>
-</form>
 </body>
-
+</form>
 <script>
 // searches through the names of contacts
 function myFunction() {

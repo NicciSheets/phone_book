@@ -97,12 +97,7 @@ post '/new_contact' do
 end
 
 post '/delete_con' do
-	names = params[:names2]
-	phone = params[:phone2]
-	address = params[:address2]
-	owner = session[:table_id]
 	id = params[:id]
-	p "id is #{id}"
 
 	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}'")
 	
@@ -110,6 +105,17 @@ post '/delete_con' do
 
 	redirect '/phonebook'
 end
+
+# post '/update_con' do
+# 	res = conn.exec("SELECT * FROM contacts WHERE owner = '#{session[:table_id]}'")
+# 	counter = 0
+# 	res.each do |num|
+# 		p num
+# 		conn.exec("UPDATE contacts SET names = '#{num[0]}', phone = '#{num[1]}', address = '#{num[2]}' WHERE id = '#{id}'")
+# 		counter += 1
+# 	end
+# 	# redirect '/phonebook'
+# end
 
 get '/sessions/logout' do
 	session[:table_id] = nil
