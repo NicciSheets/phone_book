@@ -175,13 +175,13 @@ hr {
       <h2>Create Account</h2>
       <hr>
       <label for="username"><b><span style="color:red;">*</span>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" pattern="^[a-z0-9-_\.]{1,20}" title="Must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period." required autofocus>
+      <input type="text" placeholder="Enter Username" name="username" pattern="^[a-z0-9_\.]{1,20}" title="Must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period." required autofocus>
 
       <label for="password"><b>Password</b></label><br>
-      <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter." required>
-
-      <scan><label for="password2"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Confirm Password" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords must match." required>
+      <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="^[a-zA-Z0-9]{8,}" title="Must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter." required>
+<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+ -->      <scan><label for="password2"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Confirm Password" id="password2" name="password2" pattern="^[a-zA-Z0-9]{8,}" title="Passwords must match." required>
       <input type="checkbox" onclick="myPassword()">Show Password</scan>
 
        
