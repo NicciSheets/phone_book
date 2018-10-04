@@ -25,14 +25,11 @@ end
 
 post '/new_user' do
 	username = params[:username]
-	# username.gsub!(/[^a-z0-9_\.]/, '') 
 	password = params[:password]
-	# password.gsub!(/[^0-9A-Za-z]/, '') 
 	password2 = params[:password2]
-	# password2.gsub!(/[^0-9A-Za-z]/, '') 
 	uuid = SecureRandom.uuid 
 	p "uuid is #{uuid}"
-	error_msg = ""
+	
 	my_password = ""
 	if password == password2
 		my_password << BCrypt::Password.create(password)
