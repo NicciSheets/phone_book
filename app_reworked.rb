@@ -57,23 +57,23 @@ end
 # need to take the bcrypt off
 post '/existing_user' do
 	username = params[:username]
-	password = params[:password]
+	my_password = params[:password]
+	uuid = params[:uuid]
+	p "uuid is #{uuid},  its params are #{params[:uuid]}"
+   
 	
-   	p "my_password is #{my_password}"
-   	owner = params[:uuid]
-   	p "uuid is #{owner}"
-	error_msg = ""
-	db_func = signin_existing_user_db(username, password)
+	db_func = signin_existing_user_db(username, my_password)
 	p "db_func is #{db_func}"
-	if db_func == "Correct Username" 
-		if my_password == password 
-			redirect '/phonebook&owner=' + owner
-		else
-			error_msg << "Incorrect Password"
-		end
-	else
-		error_msg << "Incorrect Username and Password"
+	
+	error_msg = ""
+	if db_func == "Correct Username and Incorrect Password"
+		error_msg << "Password is incorrect, please try signing in again."
 		erb :login, locals:{error_msg: error_msg}
+	elsif db_func == "Incorrect Username"
+		error_msg << "Username is incorrect, please try signing in again."
+		erb :login, locals:{error_msg: error_msg}
+	else db_func == "Correct Username and Password" 
+		redirect '/phonebook?uuid=' + uuid
 	end
 end
 
@@ -81,7 +81,7 @@ get '/phonebook' do
 	names = names || ""
 	phone = phone || ""
 	address = address || ""
-	owner = params[:uuid]
+	owner = owner || ""
 	id = session[:id]
 
 	p "owner is #{owner} and the sessions are #{params[:uuid]}"
