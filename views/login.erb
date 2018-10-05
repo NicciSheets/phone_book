@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
+body {
+  font-family: Arial, Helvetica, sans-serif;}
+
+* {
+  box-sizing: border-box;}
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -160,8 +163,10 @@ hr {
 }
 </style>
 
-<body>
 
+
+
+<body>
 <form method="post" action="/error">
     <%=error_msg%>
 </form>
@@ -179,8 +184,7 @@ hr {
 
       <label for="password"><b>Password</b></label><br>
       <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="^[a-zA-Z0-9]{8,}" title="Must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter." required>
-<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
- -->      <scan><label for="password2"><b>Confirm Password</b></label>
+      <scan><label for="password2"><b>Confirm Password</b></label>
       <input type="password" placeholder="Confirm Password" id="password2" name="password2" pattern="^[a-zA-Z0-9]{8,}" title="Passwords must match." required>
       <input type="checkbox" onclick="myPassword()">Show Password</scan>
 
@@ -356,10 +360,6 @@ function myPassword() {
         x.type = "password";
     }
 }
-
-
 </script>
-
 </body>
 </html>
-<!-- Need to fix the matching criteria for the two passwords, right now it's saying it's matching when only first one or two characters match up... -->
