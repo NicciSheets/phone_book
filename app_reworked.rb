@@ -87,7 +87,7 @@ post '/existing_user' do
 end
 
 
-
+# loads the phonebook main page, where users can add contacts, view their phonebook listings and signout
 get '/phonebook' do
 	names = names || ""
 	phone = phone || ""
@@ -103,7 +103,7 @@ get '/phonebook' do
 end
 
 
-
+# brings up the new contact page where users can enter contact information to be stored to db
 get '/new_contact' do
 	names = names || ""
 	phone = phone || ""
@@ -112,4 +112,16 @@ get '/new_contact' do
 	id = id || ""
 
 	erb :new_contact
+end
+
+
+# allows you to submit the new contact information to db
+post '/new_contact' do
+	names = params[:names]
+	phone = params[:phone]
+	address = params[:address]
+	owner = session[:table_id]
+	
+	create_contact(names, phone, address, owner)
+	redirect '/phonebook'
 end

@@ -69,3 +69,9 @@ def phonebook_table(owner)
 	end
 	res_arr
 end
+
+def create_contact(names, phone, address, owner)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	conn.prepare("cons", "insert into contacts (names, phone, address, owner) values($1, $2, $3, $4)")
+	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
+end
