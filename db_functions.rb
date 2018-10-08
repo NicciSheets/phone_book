@@ -4,9 +4,6 @@ require 'bcrypt'
 
 load 'local_env.rb' if File.exist?('local_env.rb')
 
-conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
-conn.prepare("cons", "insert into contacts (names, phone, address, owner) values($1, $2, $3, $4)")
-
 
 # checks new username against all usernames in db, if username is not already taken, it allows user to pass information to user_info database for username and password
 def create_user_db(uuid, username, my_password)
@@ -70,12 +67,16 @@ def phonebook_table(owner)
 	res_arr 
 end
 
+
+# adds contact name, phone number and address to the correct owner db
 def create_contact(names, phone, address, owner)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
 	conn.prepare("cons", "insert into contacts (names, phone, address, owner) values($1, $2, $3, $4)")
 	res = conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
 end
 
+
+# deletes contact from table and db based on id
 def delete_contact(id)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
 	res = conn.exec("SELECT id FROM contacts WHERE owner = '#{session[:table_id]}'")

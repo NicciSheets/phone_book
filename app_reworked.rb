@@ -135,3 +135,9 @@ post '/delete_con' do
 
 	redirect '/phonebook'
 end
+
+get '/sessions/logout' do
+	session[:table_id] = nil
+
+	redirect '/'
+end
