@@ -93,12 +93,13 @@ get '/phonebook' do
 	phone = phone || ""
 	address = address || ""
 	owner = session[:table_id]
-	id = session[:id]
-	p "owner is #{owner} and #{session[:table_id]}"
-	p "id is #{id} and the session is #{session[:id]}"
+	id = id || ""
+	# p "owner is #{owner} and #{session[:table_id]}"
+	# p "id session is #{session[:id]}"
 
 	res_arr = phonebook_table(owner)
-	
+	# id = session[:id]
+
 	erb :phonebook, locals:{res_arr: res_arr}
 end
 
@@ -109,7 +110,6 @@ get '/new_contact' do
 	phone = phone || ""
 	address = address || ""
 	owner = owner || ""
-	id = id || ""
 
 	erb :new_contact
 end
@@ -123,5 +123,15 @@ post '/new_contact' do
 	owner = session[:table_id]
 	
 	create_contact(names, phone, address, owner)
+
+	redirect '/phonebook'
+end
+
+
+post '/delete_con' do
+	id = params[:id]
+	p "id is #{id} and sessions are #{params[:id]}"
+	delete_contact(id)
+
 	redirect '/phonebook'
 end

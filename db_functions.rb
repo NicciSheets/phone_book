@@ -34,7 +34,7 @@ def signin_existing_user_db(username, my_password)
 	res = conn.exec("SELECT * FROM user_info WHERE user_id = '#{username}'")
 	# p "res.values is #{res.values}"
 	message = ""
-	p "res.values are #{res.values}"
+	# p "res.values are #{res.values}"
 	if res.num_tuples.zero? == false 
 		password = res.values[0][2] 
 		compare_password = BCrypt::Password.new(password)
@@ -67,11 +67,18 @@ def phonebook_table(owner)
 	res.each do |r|
 		res_arr << r
 	end
-	res_arr
+	res_arr 
 end
 
 def create_contact(names, phone, address, owner)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
 	conn.prepare("cons", "insert into contacts (names, phone, address, owner) values($1, $2, $3, $4)")
-	conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
+	res = conn.exec_prepared('cons', [params[:names], params[:phone], params[:address], session[:table_id]])
+end
+
+def delete_contact(id)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	res = conn.exec("SELECT id FROM contacts WHERE owner = '#{session[:table_id]}'")
+	p "res values are #{res.values}"
+	conn.exec("DELETE FROM contacts WHERE id = '#{params[:id]}'")
 end
