@@ -118,12 +118,13 @@ tr:nth-child(even) {
     <th>Options</th>
     </tr>
     <% res_arr.each do |r|%>
-    <div name="id" value="<%= r['id'] %>"><tr>
-    <td><div class="row_data"  contenteditable="true" name="names" autofocus><%= r['names']%></div></td>
-    <td><div class="row_data"  contenteditable="true" name="phone"><%= r['phone']%></div></td>
-    <td><div class="row_data"  contenteditable="true" name="address"><%= r['address']%></div></td>
-    <td><scan><button type="submit" value="<%= r['id'] %>" name="id" onclick="delete_con()">Delete<button type="submit" onclick="edit()" value="<%= r['id'] %>" name="id">Edit</scan></td>
-    </tr></div>
+    <tr>
+    <td><div name="names" autofocus><%= r['names']%></div></td>
+    <td><div name="phone"><%= r['phone']%></div></td>
+    <td><div name="address"><%= r['address']%></div></td>
+    <td><scan><button type="submit" value="<%= r['id'] %>" name="id" onclick="delete_con()">Delete</button>
+    <button type="submit" onclick="update_con()" value="<%= r['id'] %>" name="id">Edit</button></scan></td>
+    </tr>
     <%end%>
   </table>
 </form>
@@ -209,7 +210,7 @@ z.action = "/delete_con";
 z.submit();
 }
 
-function edit(){
+function update_con(){
 var m = document.getElementById("myform");
 m.action = "/update_con";
 m.submit();
