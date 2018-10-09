@@ -79,7 +79,7 @@ end
 # deletes contact from table and db based on id
 def delete_contact(id)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
-	res = conn.exec("SELECT id FROM contacts WHERE owner = '#{session[:table_id]}'")
+	res = conn.exec("SELECT id FROM contacts WHERE id = '#{params[:id]}'")
 	p "res values are #{res.values}"
 	conn.exec("DELETE FROM contacts WHERE id = '#{params[:id]}'")
 end

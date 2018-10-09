@@ -89,7 +89,6 @@ tr:nth-child(even) {
 
 <h1>Contacts</h1>
 
-
   <ul>
     <li class="newcontact"><a href="/new_contact">Add Contact</a></li>
     <li class="dropdown">
@@ -110,7 +109,7 @@ tr:nth-child(even) {
   </ul>
   <br>
 
-<form method="post" action="delete_con">
+<form method="post" action="phonebook" class="myform" id="myform">
    <table class="myTable" id="myTable">
     <tr>
     <th onclick="sortTable(0)">Name</th>
@@ -119,12 +118,12 @@ tr:nth-child(even) {
     <th>Options</th>
     </tr>
     <% res_arr.each do |r|%>
-    <tr>
+    <div name="id" value="<%= r['id'] %>"><tr>
     <td><div class="row_data"  contenteditable="true" name="names" autofocus><%= r['names']%></div></td>
     <td><div class="row_data"  contenteditable="true" name="phone"><%= r['phone']%></div></td>
     <td><div class="row_data"  contenteditable="true" name="address"><%= r['address']%></div></td>
-    <td><scan><button name="id" value="<%= r['id'] %>">Delete</button><button name="edit">Update</button></scan></td>
-    </tr>
+    <td><scan><button type="submit" value="<%= r['id'] %>" name="id" onclick="delete_con()">Delete<button type="submit" onclick="edit()" value="<%= r['id'] %>" name="id">Edit</scan></td>
+    </tr></div>
     <%end%>
   </table>
 </form>
@@ -202,6 +201,18 @@ function sortTable(n) {
       }
     }
   }
+}
+
+function delete_con(){
+var z = document.getElementById("myform");
+z.action = "/delete_con";
+z.submit();
+}
+
+function edit(){
+var m = document.getElementById("myform");
+m.action = "/update_con";
+m.submit();
 }
 
 </script>
