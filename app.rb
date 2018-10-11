@@ -144,13 +144,14 @@ get '/update_con' do
 	phone = phone || ""
 	address = address || ""
 	res_arr = res_arr || []
+	owner = session[:table_id]
 # 	names = params[:names2]
 # 	phone = params[:phone2]
 # 	address = params[:address2]
     id = params[:id]
 
 	update_contact(names, phone, address, id)
-
+	res_arr = phonebook_table(owner)
 	erb :phonebook, locals:{res_arr: res_arr}
 end
 
