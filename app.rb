@@ -148,7 +148,7 @@ get '/update_con' do
 # 	names = params[:names2]
 # 	phone = params[:phone2]
 # 	address = params[:address2]
-    id = params[:id]
+    id = params[:id2]
 
 	update_contact(names, phone, address, id)
 	res_arr = phonebook_table(owner)
@@ -164,6 +164,7 @@ post '/update_con' do
 	names = params[:names2]
 	phone = params[:phone2]
 	address = params[:address2]
+
 
 	# p "names is #{names} and phone is #{phone} and address is #{address}"
 	# update_contact(names, phone, address, id)

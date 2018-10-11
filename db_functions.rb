@@ -98,3 +98,9 @@ def update_contact(names, phone, address, id)
 	# res = conn.exec("SELECT * FROM contacts WHERE id = '#{params[:id]}'")
 	conn.exec("UPDATE contacts SET names = '#{params[:names2]}', phone = '#{params[:phone2]}', address = '#{params[:address2]}' WHERE id = '#{id}'")
 end
+
+def get_info(id)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	res = conn.exec("SELECT * FROM contacts WHERE id = '#{params[:id2]}'")
+	res.values
+end

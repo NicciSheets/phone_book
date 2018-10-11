@@ -198,7 +198,7 @@ hr {
 <h1>Contacts</h1>
 
   <ul>
-    <li class="newcontact"><a href="/new_contact">Add Contact</a></li>
+    <li class="newcontact"><a href="/new_contact" style="color:#4CAF50">Add Contact</a></li>
     <li class="dropdown">
       <a href="javascript:void(0)" class="dropbtn">Useful Links</a>
       <div class="dropdown-content">
@@ -226,12 +226,12 @@ hr {
     </tr>
     <% res_arr.each do |r|%>
     <tr>
-    <td><div name="names" autofocus><%= r['names']%></div></td>
+    <td><div name="names" autofocus id="names1"><%= r['names']%></div></td>
     <td><div name="phone"><%= r['phone']%></div></td>
     <td><div name="address"><%= r['address']%></div></td>
     <td><scan>
   <form method="post" action="delete_con">
-    <button type="submit" value="<%= r['id'] %>" name="id" >Delete</button>
+    <button type="submit" value="<%= r['id'] %>" id="id" name="id" >Delete</button>
   </form>
   <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" name="id" id="id_1" value="<%= r['id'] %>">Edit</button></scan></td>
     </tr>
@@ -241,23 +241,23 @@ hr {
 <div id="id01" class="modal">
     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
   <form class="modal-content animate" action="/update_con">
-    
+   
       <div class="container">
       <label for="names2">Name</label>
-      <input type="text" name="names2" class="names" autofocus>
+      <input type="text" id="names2" name="names2" class="names" autofocus>
 
       <label for="phone2">Phone Number</label>
       <input type="text" name="phone2" class="phone">
     
       <label for="address2">Address</label>
-      <input type="text" name="address2" class="address">
+      <input type="text"  name="address2" class="address">
     
     
       </div>
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signupbtn" id="id_2" name="id" onclick="update_con()">Save</button>
+      <button type="submit" class="signupbtn" id="id_2" name="id2" onclick="update_con()">Save</button>
     </div>
 </form>    
 </div>
@@ -360,6 +360,15 @@ window.onclick = function(event) {
     }
 }
 
+var textOne = document.getElementById("id");
+var textTwo = document.getElementById("id_1");
+//Get the value of textOne textbox input
+var textOneValue = textOne.value;
+ 
+var textTwoValue = textOneValue;
+//Assign the value of textOne textbox to textTwo textbox
+textTwo.value = textTwoValue;
+
 var textOne = document.getElementById("id_1");
 var textTwo = document.getElementById("id_2");
 //Get the value of textOne textbox input
@@ -368,5 +377,6 @@ var textOneValue = textOne.value;
 var textTwoValue = textOneValue;
 //Assign the value of textOne textbox to textTwo textbox
 textTwo.value = textTwoValue;
+
 </script>
 </body>
