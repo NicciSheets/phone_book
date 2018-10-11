@@ -234,7 +234,7 @@ hr {
     <button type="submit" value="<%= r['id'] %>" name="id" >Delete</button>
   </form>
   <button onclick="document.getElementById('id01').style.display='block'; myFunctionId()" style="width:auto;" name="id" id="id_1"     value="<%= r['id'] %>">Edit</button></td>
-  <input type="hidden" name="id" id="id_info" style="display:none"><td><%= r['id']%></td>
+  <div input type="hidden" name="id" id="id_info"><td style="display:none"><%= r['id']%></td></div>
     </tr>
     <% end %>
   </table>
