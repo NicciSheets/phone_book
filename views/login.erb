@@ -177,7 +177,7 @@ hr {
       <!-- <h2>Create Account</h2> -->
       <!-- <hr> -->
       <label for="username"><b><span style="color:red;">*</span>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" pattern="^[a-z0-9_\.]{1,20}" title="Must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period." required autofocus>
+      <input type="text" placeholder="Enter Username" name="username" id="username" pattern="^[a-z0-9_\.]{1,20}" title="Must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period." required autofocus>
 
       <label for="password"><b>Password</b></label><br>
       <input type="password" placeholder="Enter Password" id="password1" name="password" pattern="^[a-zA-Z0-9]{8,}" title="Must be a minimum of 8 characters, using at least one number, one uppercase letter and one lowercase letter." required>
@@ -190,10 +190,13 @@ hr {
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
           <button type="submit" class="signupbtn">Sign Up</button>
       </div>
-
-       <p style="font-size:12px"><span style="color:red;">*</span>Username must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period.</p>
     </div>
+      
 
+    <div id="msg">
+        <p><span style="color:red;">*</span>Username must be between 2-20 characters; may include numbers, lowercase letters, an underscore and/or a period.</p>
+    </div>
+   
     <div id="message">
       <h3>Password must contain the following:</h3>
       <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -253,7 +256,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
+var myStuff = document.getElementById("username")
 var myInput = document.getElementById("password1");
 var myInput2 = document.getElementById("password2");
 var letter = document.getElementById("letter");
@@ -261,6 +264,15 @@ var capital = document.getElementById("capital");
 var number = document.getElementById("number");
 var length = document.getElementById("length");
 var matching = document.getElementById("matching");
+
+myStuff.onfocus = function() {
+  document.getElementById("msg").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myStuff.onblur = function() {
+  document.getElementById("msg").style.display = "none";
+}
 
 // When the user clicks on the password field, show the message box
 myInput.onfocus = function() {
