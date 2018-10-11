@@ -194,7 +194,7 @@ hr {
 </style>
 </head>
 <body>
-
+<div id="myform">
 <h1>Contacts</h1>
 
   <ul>
@@ -224,16 +224,17 @@ hr {
     <th>Address</th>
     <th>Options</th>
     </tr>
-    <% res_arr.each do |r|%>
+    <% res_arr.each_with_index do |r|%>
     <tr>
-    <td><div name="names" autofocus id="names1"><%= r['names']%></div></td>
-    <td><div name="phone"><%= r['phone']%></div></td>
-    <td><div name="address"><%= r['address']%></div></td>
-    <td><scan>
-  <form method="post" action="delete_con">
-    <button type="submit" value="<%= r['id'] %>" id="id" name="id" >Delete</button>
+    <div name="names" autofocus><td><%= r['names']%></td></div>
+    <div name="phone"><td><%= r['phone']%></td></div>
+    <div name="address"><td><%= r['address']%></td></div>
+    <td>
+  <form method="post" action="delete_con" id="id">
+    <button type="submit" value="<%= r['id'] %>" name="id" >Delete</button>
   </form>
-  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" name="id" id="id_1" value="<%= r['id'] %>">Edit</button></scan></td>
+  <button onclick="document.getElementById('id01').style.display='block'; myFunctionId()" style="width:auto;" name="id" id="id_1"     value="<%= r['id'] %>">Edit</button></td>
+  <input type="hidden" name="id" id="id_info" style="display:none"><td><%= r['id']%></td>
     </tr>
     <% end %>
   </table>
@@ -242,26 +243,26 @@ hr {
     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
   <form class="modal-content animate" action="/update_con">
    
-      <div class="container">
+    <div class="container">
       <label for="names2">Name</label>
       <input type="text" id="names2" name="names2" class="names" autofocus>
 
       <label for="phone2">Phone Number</label>
-      <input type="text" name="phone2" class="phone">
+      <input type="text" name="phone2" id="phone2" class="phone">
     
       <label for="address2">Address</label>
-      <input type="text"  name="address2" class="address">
+      <input type="text"  name="address2" id="address2" class="address">
     
     
-      </div>
+    </div>
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signupbtn" id="id_2" name="id2" onclick="update_con()">Save</button>
+      <button type="submit" class="signupbtn" id="id_2" name="id2">Save</button>
     </div>
 </form>    
 </div>
-
+</div>
 
 <script>
 // searches through the names of contacts
@@ -338,11 +339,6 @@ function sortTable(n) {
   }
 }
 
-// function delete_con(){
-// var z = document.getElementById("myform");
-// z.action = "/delete_con";
-// z.submit();
-// }
 
 function update_con(){
 var m = document.getElementById("myform");
@@ -360,23 +356,20 @@ window.onclick = function(event) {
     }
 }
 
-var textOne = document.getElementById("id");
-var textTwo = document.getElementById("id_1");
-//Get the value of textOne textbox input
-var textOneValue = textOne.value;
- 
-var textTwoValue = textOneValue;
-//Assign the value of textOne textbox to textTwo textbox
-textTwo.value = textTwoValue;
-
-var textOne = document.getElementById("id_1");
-var textTwo = document.getElementById("id_2");
-//Get the value of textOne textbox input
-var textOneValue = textOne.value;
- 
-var textTwoValue = textOneValue;
-//Assign the value of textOne textbox to textTwo textbox
-textTwo.value = textTwoValue;
+// sends the table element value to the modal so form is already filled in to be edited and allows for correct id to be used
+var table = document.getElementById('myTable');
+                
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                         // rIndex = this.rowIndex;
+                         document.getElementById("names2").value = this.cells[0].innerHTML;
+                         document.getElementById("phone2").value = this.cells[1].innerHTML;
+                         document.getElementById("address2").value = this.cells[2].innerHTML;
+                         document.getElementById("id_2").value = this.cells[4].innerHTML;
+                    };
+                }
 
 </script>
 </body>

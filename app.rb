@@ -152,6 +152,7 @@ get '/update_con' do
 
 	update_contact(names, phone, address, id)
 	res_arr = phonebook_table(owner)
+	
 	erb :phonebook, locals:{res_arr: res_arr}
 end
 
@@ -170,6 +171,22 @@ post '/update_con' do
 	# update_contact(names, phone, address, id)
 	redirect '/phonebook'
 end
+
+# get '/id_info' do
+# 	res_arr2 = get_info(id)
+# 	p "res_arr2 is #{res_arr2}"
+
+# 	erb :phonebook, locals:{res_arr2: res_arr2} 
+# end
+
+# post '/id_info' do 
+# 	res_arr2 = get_info(id)
+# 	p "res_arr2 is #{res_arr2}"
+
+# 	erb :phonebook, locals:{res_arr2: res_arr2} 
+# end
+
+
 
 get '/sessions/logout' do
 	session[:table_id] = nil
