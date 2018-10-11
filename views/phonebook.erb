@@ -233,11 +233,8 @@ hr {
   <form method="post" action="delete_con">
     <button type="submit" value="<%= r['id'] %>" id="id_1" name="id" >Delete</button>
   </form>
-  
-  <% res_arr2.each_with_index do |r| %>
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" name="id" value="<%= r['id'] %>">Edit</button></scan></td>
+  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" name="id" value="<%= r['id'] %>">Edit</button></scan></td>
     </tr>
-    <% end %>
     <% end %>
   </table>
 

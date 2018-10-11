@@ -85,13 +85,13 @@ def delete_contact(id)
 	conn.exec("DELETE FROM contacts WHERE id = '#{params[:id]}'")
 end
 
-def get_id(id)
-	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
-	res = conn.exec("SELECT id FROM contacts WHERE owner = '#{session[:table_id]}'")
-	res.values
-	p "res.values are #{res.values}"
-	res.values
-end
+# def get_id(id)
+# 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+# 	res = conn.exec("SELECT id FROM contacts WHERE owner = '#{session[:table_id]}'")
+# 	res.values
+# 	p "res.values are #{res.values}"
+# 	res.values
+# end
 
 def update_contact(names, phone, address)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])

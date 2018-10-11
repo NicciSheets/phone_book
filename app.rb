@@ -99,11 +99,11 @@ get '/phonebook' do
 	# p "id session is #{session[:id]}"
 
 	res_arr = phonebook_table(owner)
-	res_arr2 = get_id(id)
-	res_arr2= res_arr2.flatten
+	# res_arr2 = get_id(id)
+	# res_arr2= res_arr2.flatten
 	# id = session[:id]
 
-	erb :phonebook, locals:{res_arr: res_arr, res_arr2: res_arr2}
+	erb :phonebook, locals:{res_arr: res_arr}
 end
 
 
