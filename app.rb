@@ -46,6 +46,8 @@ post '/new_user' do
 		my_password = ""
 	end
 	# p "my password is #{my_password}"
+	username = escape_username(username)
+	my_password = escape_password(my_password)
 
 	db_func = create_user_db(uuid, username, my_password)
 	# p "db_func is #{db_func}"
@@ -67,9 +69,11 @@ end
 post '/existing_user' do
 	username = params[:username]
 	my_password = params[:password]
-	
+	username = escape_username(username)
+	my_password = escape_password(my_password)
 	db_func = signin_existing_user_db(username, my_password)
 	# p "db_func is #{db_func}"
+
 
 	error_msg = ""
 	if db_func == "Correct Username and Incorrect Password"
@@ -124,6 +128,9 @@ post '/new_contact' do
 	phone = params[:phone]
 	address = params[:address]
 	owner = session[:table_id]
+	names = escape_names(names)
+	phone = escape_phone(phone)
+	address = escape_address(address)
 	
 	create_contact(names, phone, address, owner)
 
@@ -145,10 +152,10 @@ get '/update_con' do
 	address = address || ""
 	res_arr = res_arr || []
 	owner = session[:table_id]
-# 	names = params[:names2]
-# 	phone = params[:phone2]
-# 	address = params[:address2]
     id = params[:id2]
+ #    names = escape_names(names)
+	# phone = escape_phone(phone)
+	# address = escape_address(address)
 
 	update_contact(names, phone, address, id)
 	res_arr = phonebook_table(owner)
@@ -158,34 +165,17 @@ end
 
 
 post '/update_con' do
-	# names = names || ""
-	# phone = phone || ""
-	# address = address || ""
 	id = id || ""
 	names = params[:names2]
 	phone = params[:phone2]
 	address = params[:address2]
+	# names = escape_names(names)
+	# phone = escape_phone(phone)
+	# address = escape_address(address)
 
 
-	# p "names is #{names} and phone is #{phone} and address is #{address}"
-	# update_contact(names, phone, address, id)
 	redirect '/phonebook'
 end
-
-# get '/id_info' do
-# 	res_arr2 = get_info(id)
-# 	p "res_arr2 is #{res_arr2}"
-
-# 	erb :phonebook, locals:{res_arr2: res_arr2} 
-# end
-
-# post '/id_info' do 
-# 	res_arr2 = get_info(id)
-# 	p "res_arr2 is #{res_arr2}"
-
-# 	erb :phonebook, locals:{res_arr2: res_arr2} 
-# end
-
 
 
 get '/sessions/logout' do

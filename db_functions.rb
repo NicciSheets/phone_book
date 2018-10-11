@@ -4,7 +4,30 @@ require 'bcrypt'
 
 load 'local_env.rb' if File.exist?('local_env.rb')
 
+def escape_username(username)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	conn.escape_string(username) 
+end
 
+def escape_password(my_password)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	conn.escape_string(my_password) 
+end
+
+def escape_names(names)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	conn.escape_string(names) 
+end
+
+def escape_phone(phone)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	conn.escape_string(phone) 
+end
+
+def escape_address(address)
+	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
+	conn.escape_string(address) 
+end
 # checks new username against all usernames in db, if username is not already taken, it allows user to pass information to user_info database for username and password
 def create_user_db(uuid, username, my_password)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
@@ -85,22 +108,16 @@ def delete_contact(id)
 	conn.exec("DELETE FROM contacts WHERE id = '#{params[:id]}'")
 end
 
-# def get_id(id)
-# 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
-# 	res = conn.exec("SELECT id FROM contacts WHERE owner = '#{session[:table_id]}'")
-# 	res.values
-# 	p "res.values are #{res.values}"
-# 	res.values
-# end
 
 def update_contact(names, phone, address, id)
 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
 	# res = conn.exec("SELECT * FROM contacts WHERE id = '#{params[:id]}'")
-	conn.exec("UPDATE contacts SET names = '#{params[:names2]}', phone = '#{params[:phone2]}', address = '#{params[:address2]}' WHERE id = '#{id}'")
+	names = params[:names2]
+	names = conn.escape_string(names)
+	phone = params[:phone2]
+	phone = conn.escape_string(phone)
+	address = params[:address2]
+	address = conn.escape_string(address)
+	conn.exec("UPDATE contacts SET names = '#{names}', phone = '#{phone}', address = '#{address}' WHERE id = '#{id}'")
 end
 
-# def get_info(id)
-# 	conn = PG::Connection.open(:host => ENV['DB_HOST'], :user => ENV['DB_USERNAME'], :dbname => ENV['DB_NAME'], :port => ENV['DB_PORT'], :password => ENV['DB_PASSWORD'])
-# 	res = conn.exec("SELECT * FROM contacts WHERE id = '#{params[:id]}'")
-# 	res.values.flatten
-# end
