@@ -1,6 +1,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script src="jquery-3.3.1.min.js"></script>
 <style>
 ul {
     list-style-type: none;
@@ -83,6 +84,113 @@ tr:nth-child(even) {
     background-color: #f2f2f2
 }
 
+/* Full-width input fields */
+.names, .phone, .address {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+/*input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}*/
+
+/* Set a style for all buttons */
+.signupbtn, .cancelbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.signupbtn :hover {
+    opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+       width: 100%;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -109,8 +217,7 @@ tr:nth-child(even) {
   </ul>
   <br>
 
-<form method="post" action="phonebook" class="myform" id="myform">
-   <table class="myTable" id="myTable">
+  <table class="myTable" id="myTable">
     <tr>
     <th onclick="sortTable(0)">Name</th>
     <th>Phone</th>
@@ -122,12 +229,42 @@ tr:nth-child(even) {
     <td><div name="names" autofocus><%= r['names']%></div></td>
     <td><div name="phone"><%= r['phone']%></div></td>
     <td><div name="address"><%= r['address']%></div></td>
-    <td><scan><button type="submit" value="<%= r['id'] %>" name="id" onclick="delete_con()">Delete</button>
-    <button type="submit" onclick="update_con()" value="<%= r['id'] %>" name="id">Edit</button></scan></td>
+    <td><scan>
+  <form method="post" action="delete_con">
+    <button type="submit" value="<%= r['id'] %>" id="id_1" name="id" >Delete</button>
+  </form>
+  
+  <% res_arr2.each_with_index do |r| %>
+    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" name="id" value="<%= r['id'] %>">Edit</button></scan></td>
     </tr>
-    <%end%>
+    <% end %>
+    <% end %>
   </table>
-</form>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content animate" action="/update_con">
+    
+      <div class="container">
+      <label for="fname">Name</label>
+      <input type="text" name="names2" id="names" class="names" autofocus>
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" name="phone2" class="phone">
+    
+      <label for="address">Address</label>
+      <input type="text" name="address2" id="address" class="address">
+    
+    
+      </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="submit" class="signupbtn" id="id_2" onclick="update_con()">Save</button>
+    </div>
+</form>    
+</div>
+
 
 <script>
 // searches through the names of contacts
@@ -204,11 +341,11 @@ function sortTable(n) {
   }
 }
 
-function delete_con(){
-var z = document.getElementById("myform");
-z.action = "/delete_con";
-z.submit();
-}
+// function delete_con(){
+// var z = document.getElementById("myform");
+// z.action = "/delete_con";
+// z.submit();
+// }
 
 function update_con(){
 var m = document.getElementById("myform");
@@ -216,5 +353,22 @@ m.action = "/update_con";
 m.submit();
 }
 
-</script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+var textOne = document.getElementById("id_1");
+var textTwo = document.getElementById("id_2");
+//Get the value of textOne textbox input
+var textOneValue = textOne.value;
+ 
+var textTwoValue = textOneValue;
+//Assign the value of textOne textbox to textTwo textbox
+textTwo.value = textTwoValue;
 </body>

@@ -37,7 +37,7 @@ post '/new_user' do
 	password2 = params[:password2]
 	uuid << SecureRandom.uuid 
 	session[:table_id] = uuid
-	p "uuid is #{uuid} amd #{session[:table_id]}"
+	# p "uuid is #{uuid} amd #{session[:table_id]}"
 	
 	my_password = ""
 	if password == password2
@@ -69,7 +69,7 @@ post '/existing_user' do
 	my_password = params[:password]
 	
 	db_func = signin_existing_user_db(username, my_password)
-	p "db_func is #{db_func}"
+	# p "db_func is #{db_func}"
 
 	error_msg = ""
 	if db_func == "Correct Username and Incorrect Password"
@@ -81,7 +81,7 @@ post '/existing_user' do
 	else db_func == "Correct Username and Password" 
 		uuid = get_uuid(username, my_password)
 		session[:table_id] = uuid
-		p "uuid in existing user #{uuid} and sessions #{session[:table_id]}"
+		# p "uuid in existing user #{uuid} and sessions #{session[:table_id]}"
 		redirect '/phonebook'
 	end
 end
@@ -94,13 +94,16 @@ get '/phonebook' do
 	address = address || ""
 	owner = session[:table_id]
 	id = id || ""
+
 	# p "owner is #{owner} and #{session[:table_id]}"
 	# p "id session is #{session[:id]}"
 
 	res_arr = phonebook_table(owner)
+	res_arr2 = get_id(id)
+	res_arr2= res_arr2.flatten
 	# id = session[:id]
 
-	erb :phonebook, locals:{res_arr: res_arr}
+	erb :phonebook, locals:{res_arr: res_arr, res_arr2: res_arr2}
 end
 
 
@@ -130,13 +133,39 @@ end
 
 post '/delete_con' do
 	id = params[:id]
-	p "id is #{id} and sessions are #{params[:id]}"
+	# p "id is #{id} and sessions are #{params[:id]}"
 	delete_contact(id)
 
 	redirect '/phonebook'
 end
 
+get '/update_con' do
+	names = names || ""
+	phone = phone || ""
+	address = address || ""
+	res_arr = res_arr || []
+# 	names = params[:names2]
+# 	phone = params[:phone2]
+# 	address = params[:address2]
+# 	id = params[:id]
+
+	update_contact(names, phone, address)
+
+	erb :phonebook, locals:{res_arr: res_arr}
+end
+
+
 post '/update_con' do
+	# names = names || ""
+	# phone = phone || ""
+	# address = address || ""
+	# id = id || ""
+	names = params[:names2]
+	phone = params[:phone2]
+	address = params[:address2]
+
+	# p "names is #{names} and phone is #{phone} and address is #{address}"
+	# update_contact(names, phone, address, id)
 	redirect '/phonebook'
 end
 
