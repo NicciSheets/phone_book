@@ -147,9 +147,9 @@ get '/update_con' do
 # 	names = params[:names2]
 # 	phone = params[:phone2]
 # 	address = params[:address2]
-# 	id = params[:id]
+    id = params[:id]
 
-	update_contact(names, phone, address)
+	update_contact(names, phone, address, id)
 
 	erb :phonebook, locals:{res_arr: res_arr}
 end
@@ -159,7 +159,7 @@ post '/update_con' do
 	# names = names || ""
 	# phone = phone || ""
 	# address = address || ""
-	# id = id || ""
+	id = id || ""
 	names = params[:names2]
 	phone = params[:phone2]
 	address = params[:address2]
