@@ -99,14 +99,8 @@ get '/phonebook' do
 	owner = session[:table_id]
 	id = id || ""
 
-	# p "owner is #{owner} and #{session[:table_id]}"
-	# p "id session is #{session[:id]}"
-
 	res_arr = phonebook_table(owner)
-	# res_arr2 = get_id(id)
-	# res_arr2= res_arr2.flatten
-	# id = session[:id]
-
+	
 	erb :phonebook, locals:{res_arr: res_arr}
 end
 
@@ -153,9 +147,6 @@ get '/update_con' do
 	res_arr = res_arr || []
 	owner = session[:table_id]
     id = params[:id2]
- #    names = escape_names(names)
-	# phone = escape_phone(phone)
-	# address = escape_address(address)
 
 	update_contact(names, phone, address, id)
 	res_arr = phonebook_table(owner)
@@ -169,10 +160,6 @@ post '/update_con' do
 	names = params[:names2]
 	phone = params[:phone2]
 	address = params[:address2]
-	# names = escape_names(names)
-	# phone = escape_phone(phone)
-	# address = escape_address(address)
-
 
 	redirect '/phonebook'
 end
